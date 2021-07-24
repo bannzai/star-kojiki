@@ -5,7 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "introspection": "apollo client:download-schema --endpoint=https://api.github.com/graphql --header=\"Authorization:Bearer $GITHUB_PERSONAL_ACCESS_TOKEN\"",
+    "introspection": "rm -f ./schema.json && get-graphql-schema -h \"Authorization=Bearer $GITHUB_PERSONAL_ACCESS_TOKEN\" https://api.github.com/graphql > schema.json",
     "eject": "expo eject"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-query Top($userName: String! $after: String) { 
+query Top($userName: String!, $after: String) {
   user(login: $userName) {
     avatarUrl
     repositories(first: 20, after: $after) {

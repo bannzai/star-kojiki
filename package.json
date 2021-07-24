@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "introspection": "rm -f ./schema.json && get-graphql-schema -h \"Authorization=Bearer $GITHUB_PERSONAL_ACCESS_TOKEN\" https://api.github.com/graphql > schema.json",
+    "introspection": "rm -f ./schema.json && get-graphql-schema -h \"Authorization=Bearer $GITHUB_PERSONAL_ACCESS_TOKEN\" https://api.github.com/graphql --json > schema.json",
+    "codegen": "graphql-codegen",
     "eject": "expo eject"
   },
   "dependencies": {

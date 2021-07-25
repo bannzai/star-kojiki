@@ -16,7 +16,9 @@ export const AuthProvider: React.VFC<Props> = ({ children }) => {
     null
   );
 
-  const login = async (token: IdentifyToken) => {
+  console.log(`identifyToken: ${identifyToken}`);
+  const login = (token: IdentifyToken) => {
+    console.log(`called setIdentifyToken`);
     setIdentifyToken(token);
   };
 

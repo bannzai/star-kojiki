@@ -7,6 +7,7 @@
     "web": "expo start --web",
     "introspection": "rm -f ./schema.json && get-graphql-schema -h \"Authorization=Bearer $GITHUB_PERSONAL_ACCESS_TOKEN\" https://api.github.com/graphql --json > schema.json",
     "codegen": "graphql-codegen",
+    "watch": "graphql-codegen --watch",
     "eject": "expo eject"
   },
   "dependencies": {

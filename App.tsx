@@ -1,41 +1,29 @@
 import * as React from "react";
 import * as WebBrowser from "expo-web-browser";
-import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
-import { Button } from "react-native";
-import Constants from "expo-constants";
+import { Platform } from "react-native";
+import { BrowserRouter, Redirect, Switch } from "react-router-dom";
+import { AuthorizedRoute } from "./src/route/AuthorizedRoute";
+import { HomePage } from "./src/usecase/home/HomePage";
+import { UnAuthorizedRoute } from "./src/route/UnauthorizedRoute";
+import { LoginPage } from "./src/usecase/login/LoginPage";
+import { AuthProvider } from "./src/context/Auth";
 
 WebBrowser.maybeCompleteAuthSession();
 
-// Endpoint
-const discovery = {
-  authorizationEndpoint: "https://github.com/login/oauth/authorize",
-  tokenEndpoint: "https://github.com/login/oauth/access_token",
-  revocationEndpoint: `https://github.com/settings/connections/applications/${Constants.manifest?.extra?.githubOAuthClientID}`,
-};
-
 export default function App() {
-  const [request, response, promptAsync] = useAuthRequest(
-    {
-      clientId: Constants.manifest?.extra?.githubOAuthClientID,
-      redirectUri: Constants.manifest?.extra?.githubOAuthCallbackURL,
-    },
-    discovery
-  );
-
-  React.useEffect(() => {
-    if (response?.type === "success") {
-      const { code } = response.params;
-      console.log(`success code: ${code}`);
-    }
-  }, [response]);
-
-  return (
-    <Button
-      disabled={!request}
-      title="Login"
-      onPress={() => {
-        promptAsync();
-      }}
-    />
-  );
+  if (Platform.OS === "web") {
+    return (
+      <AuthProvider>
+        <BrowserRouter>
+          <Switch>
+            <AuthorizedRoute exact path="/" component={HomePage} />
+            <UnAuthorizedRoute exact path="/login" component={LoginPage} />
+            <Redirect to="/" />
+          </Switch>
+        </BrowserRouter>
+      </AuthProvider>
+    );
+  } else {
+    return <p> Comming soon...</p>;
+  }
 }

@@ -1,5 +1,7 @@
 query Top($userName: String!, $after: String) {
   user(login: $userName) {
+    id
+    name
     avatarUrl
     repositories(first: 20, after: $after) {
       edges {

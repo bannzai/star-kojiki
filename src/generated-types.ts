@@ -21297,7 +21297,7 @@ export type TopQuery = (
   { __typename?: 'Query' }
   & { user?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'avatarUrl'>
+    & Pick<User, 'id' | 'name' | 'avatarUrl'>
     & { repositories: (
       { __typename?: 'RepositoryConnection' }
       & { edges?: Maybe<Array<Maybe<(
@@ -21315,6 +21315,8 @@ export type TopQuery = (
 export const TopDocument = gql`
     query Top($userName: String!, $after: String) {
   user(login: $userName) {
+    id
+    name
     avatarUrl
     repositories(first: 20, after: $after) {
       edges {
